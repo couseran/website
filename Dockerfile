@@ -14,9 +14,17 @@ FROM node:24-alpine as front-runner
 
 WORKDIR /app
 
-COPY --from=front-builder /app/.next ./
-EXPOSE 3000
-
 ENV HOST=0.0.0.0 PORT=3000 NODE_ENV=production
 
-ENTRYPOINT ["next", "start"]
+# 1. Copy the public folder (needed for images/favicon)
+COPY --from=front-builder /app/public ./public
+
+# 2. Copy the standalone build (this includes the necessary node_modules)
+COPY --from=front-builder /app/.next/standalone ./
+
+# 3. Copy static assets (Next.js needs these in a specific location)
+COPY --from=front-builder /app/.next/static ./.next/static
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
