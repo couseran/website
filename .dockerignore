@@ -16,7 +16,6 @@ build
 
 # Docker files (You don't need the Dockerfile inside the container)
 Dockerfile
-docker-compose.yml
 .dockerignore
 
 # Documentation/IDEs
