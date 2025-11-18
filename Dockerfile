@@ -14,7 +14,7 @@ FROM node:24-alpine as front-runner
 
 WORKDIR /app
 
-COPY --from=front-builder /app/.output ./
+COPY --from=front-builder /app/.next ./
 EXPOSE 3000
 
 ENV HOST=0.0.0.0 PORT=3000 NODE_ENV=production
