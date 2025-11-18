@@ -1,0 +1,15 @@
+services:
+  app:
+    image: ghcr.io/couseran/website:main
+    restart: unless-stopped
+    networks:
+      - proxy
+    environment:
+      TZ: "Europe/Paris"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.website.rule: "Host(`couseran.fr`)"
+
+networks:
+  proxy:
+    external: true
